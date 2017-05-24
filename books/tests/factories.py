@@ -8,3 +8,11 @@ class AuthorFactory(factory.django.DjangoModelFactory):
 
     first_name = "John"
     last_name = "Smith"
+
+
+class PublisherFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Publisher
+
+    name = "Pearson"
+
