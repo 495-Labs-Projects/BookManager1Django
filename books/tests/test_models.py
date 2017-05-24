@@ -5,9 +5,11 @@ from django.utils import timezone
 from books.models import *
 from books.tests.utilities import *
 
-class AuthorTest(TestCase):
 
-    factories = Populate()
+class FactoryTestCase(TestCase):
+    factories = Populate()    
+
+class AuthorTest(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_authors()
@@ -20,14 +22,14 @@ class AuthorTest(TestCase):
         a = Author.objects.get(first_name="John")
         self.assertEqual("John Smith", str(a))
 
+        self.assertEqual("Rick Huang", str(self.factories.a3))
+
     def test_alphabetical(self):
         self.assertQuerysetEqual(Author.objects.alphabetical(), 
             ["<Author: Ernest Hemingway>", "<Author: Rick Huang>", "<Author: Bob Smith>", "<Author: John Smith>"])
 
 
-class PublisherTest(TestCase):
-
-    factories = Populate()
+class PublisherTest(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_publishers()
@@ -41,9 +43,7 @@ class PublisherTest(TestCase):
             [repr(self.factories.p1), repr(self.factories.p2), repr(self.factories.p3)])
 
 
-class BookTest(TestCase):
-
-    factories = Populate()
+class BookTest(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_books()

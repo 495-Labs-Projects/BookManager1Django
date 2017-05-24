@@ -24,8 +24,12 @@ class BookFactory(factory.django.DjangoModelFactory):
     title = "Cool Story"
     year_published = timezone.now().year
 
+    # Sub Factories are used for One to Many relationships
     publisher = factory.SubFactory(PublisherFactory)
 
+    # There's nothing sepcifically built in for Many to Many relationships
+    # authors is a function instead of just a attribute and is called after the book is generated
+    # All it does is goes through the list of authors and adds it to the book's authors list
     @factory.post_generation
     def authors(self, create, extracted, **kwargs):
         if not create:
