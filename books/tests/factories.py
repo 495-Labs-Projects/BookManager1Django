@@ -2,9 +2,9 @@ import factory
 from books.models import *
 
 
-class AuthorFactory(factory.Factory):
+class AuthorFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.AuthorFactory
+        model = Author
 
     first_name = "John"
     last_name = "Smith"
