@@ -1,5 +1,6 @@
 import factory
 from books.models import *
+from django.utils import timezone
 
 
 class AuthorFactory(factory.django.DjangoModelFactory):
@@ -16,20 +17,19 @@ class PublisherFactory(factory.django.DjangoModelFactory):
 
     name = "Pearson"
 
-# class BookFactory(factory.django.DjangoModelFactory):
-#     class Meta:
-#         model = Book
+class BookFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Book
 
+    title = "Cool Story"
+    year_published = timezone.now().year
 
-#     title = "Cool Story"
-#     year_published = 2015
+    publisher = factory.SubFactory(PublisherFactory)
 
-#     publisher = factory.RelatedFactory(PublisherFactory, 'book')
-
-#     @factory.post_generation
-#     def authors(self, create, extracted, **kwargs):
-#         if not create:
-#             return
-#         if extracted:
-#             for author in extracted:
-#                 self.authors.add(author)
+    @factory.post_generation
+    def authors(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for author in extracted:
+                self.authors.add(author)
