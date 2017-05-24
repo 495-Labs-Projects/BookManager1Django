@@ -16,3 +16,20 @@ class PublisherFactory(factory.django.DjangoModelFactory):
 
     name = "Pearson"
 
+# class BookFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = Book
+
+
+#     title = "Cool Story"
+#     year_published = 2015
+
+#     publisher = factory.RelatedFactory(PublisherFactory, 'book')
+
+#     @factory.post_generation
+#     def authors(self, create, extracted, **kwargs):
+#         if not create:
+#             return
+#         if extracted:
+#             for author in extracted:
+#                 self.authors.add(author)

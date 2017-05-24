@@ -5,8 +5,10 @@ from books.tests.utilities import *
 
 class AuthorTest(TestCase):
 
+    factories = Populate()
+
     def setUp(self):
-        populate_authors()
+        self.factories.populate_authors()
 
     def test_author_name(self):
         a = Author.objects.get(first_name="John")
@@ -19,9 +21,22 @@ class AuthorTest(TestCase):
 
 class PublisherTest(TestCase):
 
+    factories = Populate()
+
     def setUp(self):
-        populate_publishers()
+        self.factories.populate_publishers()
 
     def test_alphabetical(self):
         self.assertQuerysetEqual(Publisher.objects.alphabetical(), 
-            ["<Publisher: Pearson>", "<Publisher: Random House>", "<Publisher: Scholastic>"])
+            [repr(self.factories.p1), repr(self.factories.p2), repr(self.factories.p3)])
+
+
+# class BookTest(TestCase):
+
+#     def setUp(self):
+#         populate_publishers()
+
+#     def test_alphabetical(self):
+#         self.assertQuerysetEqual(Publisher.objects.alphabetical(), 
+#             ["<Publisher: Pearson>", "<Publisher: Random House>", "<Publisher: Scholastic>"])
+
