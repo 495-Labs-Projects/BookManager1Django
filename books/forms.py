@@ -17,3 +17,10 @@ class AuthorForm(forms.ModelForm):
         model = Author
         fields = ["first_name", "last_name"] 
 
+
+class PublisherForm(forms.ModelForm):
+
+    class Meta:
+        model = Publisher
+        fields = ["name"] 
+

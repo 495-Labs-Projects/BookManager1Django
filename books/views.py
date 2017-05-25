@@ -71,3 +71,38 @@ class AuthorDelete(DeleteView):
     
     def get_success_url(self):
         return reverse('books:author_list')
+
+
+# Publisher CRUD operations
+
+class PublisherList(ListView):
+    model = Publisher
+    template_name = 'publishers/publisher_list.html'
+
+class PublisherDetail(DetailView):
+    model = Publisher
+    template_name = 'publishers/publisher_detail.html'
+
+class PublisherCreate(CreateView):
+    model = Publisher
+    form_class = PublisherForm
+    template_name = 'publishers/publisher_form.html'
+
+    def get_success_url(self):
+        return reverse('books:publisher_list')
+
+class PublisherUpdate(UpdateView):
+    model = Publisher
+    form_class = PublisherForm
+    template_name = 'publishers/publisher_form.html'
+    
+    def get_success_url(self):
+        return reverse('books:publisher_list')
+
+class PublisherDelete(DeleteView):
+    model = Publisher
+    template_name = 'publishers/publisher_confirm_delete.html'
+    
+    def get_success_url(self):
+        return reverse('books:publisher_list')
+

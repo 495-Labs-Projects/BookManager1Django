@@ -14,4 +14,10 @@ urlpatterns = [
   url(r'^authors/new$', views.AuthorCreate.as_view(), name='author_new'),
   url(r'^authors/edit/(?P<pk>\d+)$', views.AuthorUpdate.as_view(), name='author_edit'),
   url(r'^authors/delete/(?P<pk>\d+)$', views.AuthorDelete.as_view(), name='author_delete'),
+
+  url(r'^publishers$', views.PublisherList.as_view(), name='publisher_list'),
+  url(r'^publishers/(?P<pk>\d+)$', views.PublisherDetail.as_view(), name='publisher_detail'),
+  url(r'^publishers/new$', views.PublisherCreate.as_view(), name='publisher_new'),
+  url(r'^publishers/edit/(?P<pk>\d+)$', views.PublisherUpdate.as_view(), name='publisher_edit'),
+  url(r'^publishers/delete/(?P<pk>\d+)$', views.PublisherDelete.as_view(), name='publisher_delete'),
 ]
