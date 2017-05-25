@@ -13,7 +13,10 @@ from books.forms import *
 # Books CRUD operations
 
 class BookList(ListView):
-    model = Book
+    model = Book()
+
+    def get_queryset(self):
+        return Book.objects.alphabetical()
 
 class BookDetail(DetailView):
     model = Book
@@ -44,6 +47,9 @@ class BookDelete(DeleteView):
 class AuthorList(ListView):
     model = Author
     template_name = 'authors/author_list.html'
+
+    def get_queryset(self):
+        return Author.objects.alphabetical()
 
 class AuthorDetail(DetailView):
     model = Author
@@ -78,6 +84,9 @@ class AuthorDelete(DeleteView):
 class PublisherList(ListView):
     model = Publisher
     template_name = 'publishers/publisher_list.html'
+
+    def get_queryset(self):
+        return Publisher.objects.alphabetical()
 
 class PublisherDetail(DetailView):
     model = Publisher

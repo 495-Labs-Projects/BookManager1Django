@@ -9,7 +9,7 @@ from books.tests.utilities import *
 class FactoryTestCase(TestCase):
     factories = Populate()    
 
-class AuthorTest(FactoryTestCase):
+class AuthorTests(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_authors()
@@ -29,7 +29,7 @@ class AuthorTest(FactoryTestCase):
             ["<Author: Ernest Hemingway>", "<Author: Rick Huang>", "<Author: Bob Smith>", "<Author: John Smith>"])
 
 
-class PublisherTest(FactoryTestCase):
+class PublisherTests(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_publishers()
@@ -43,7 +43,7 @@ class PublisherTest(FactoryTestCase):
             [repr(self.factories.p1), repr(self.factories.p2), repr(self.factories.p3)])
 
 
-class BookTest(FactoryTestCase):
+class BookTests(FactoryTestCase):
 
     def setUp(self):
         self.factories.populate_books()
