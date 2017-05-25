@@ -3,15 +3,20 @@
 {% block content %}
 
 <h1>Publishers</h1>
-<ul>
-    {% for publisher in object_list %}
+
+{% if object_list %}
+    <ul>
+        {% for publisher in object_list %}
         <li>
             <a href="{% url 'books:publisher_detail' publisher.id %}">{{ publisher.name }}</a>
             <a href="{% url 'books:publisher_edit' publisher.id %}">edit</a>
             <a href="{% url 'books:publisher_delete' publisher.id %}">delete</a>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No publishers are available.</p>
+{% endif %}
 
 <a href="{% url 'books:publisher_new' %}">New</a>
 

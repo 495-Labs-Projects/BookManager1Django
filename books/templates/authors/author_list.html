@@ -3,15 +3,20 @@
 {% block content %}
 
 <h1>Authors</h1>
-<ul>
-    {% for author in object_list %}
+
+{% if object_list %}
+    <ul>
+        {% for author in object_list %}
         <li>
             <a href="{% url 'books:author_detail' author.id %}">{{ author }}</a>
             <a href="{% url 'books:author_edit' author.id %}">edit</a>
             <a href="{% url 'books:author_delete' author.id %}">delete</a>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No authors are available.</p>
+{% endif %}
 
 <a href="{% url 'books:author_new' %}">New</a>
 
