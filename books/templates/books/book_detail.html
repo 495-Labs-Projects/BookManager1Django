@@ -7,7 +7,7 @@
     Authors:
     <ul>
     {% for author in object.authors.all %}
-        <li>{{ author }}</li>
+        <li><a href="{% url 'books:author_detail' author.id %}">{{ author }}</a></li>
     {% endfor %}
     </ul>
 </p>

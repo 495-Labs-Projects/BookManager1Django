@@ -7,8 +7,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 
-from books.models import Book
-from books.forms import BookForm
+from books.models import *
+from books.forms import *
+
+# Books CRUD operations
 
 class BookList(ListView):
     model = Book
@@ -35,3 +37,37 @@ class BookDelete(DeleteView):
     
     def get_success_url(self):
         return reverse('books:book_list')
+
+
+# Author CRUD operations
+
+class AuthorList(ListView):
+    model = Author
+    template_name = 'authors/author_list.html'
+
+class AuthorDetail(DetailView):
+    model = Author
+    template_name = 'authors/author_detail.html'
+
+class AuthorCreate(CreateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'authors/author_form.html'
+
+    def get_success_url(self):
+        return reverse('books:author_list')
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'authors/author_form.html'
+    
+    def get_success_url(self):
+        return reverse('books:author_list')
+
+class AuthorDelete(DeleteView):
+    model = Author
+    template_name = 'authors/author_confirm_delete.html'
+    
+    def get_success_url(self):
+        return reverse('books:author_list')

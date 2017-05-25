@@ -1,4 +1,4 @@
 <form method="post">{% csrf_token %}
-    Are you sure you want to delete "{{ object }}" ?
+    {{ form.as_p }}
     <input type="submit" value="Submit" />
 </form>
