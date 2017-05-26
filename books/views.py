@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView
+from django.views.generic import View, TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
@@ -81,12 +81,14 @@ class AuthorDelete(DeleteView):
 
 # Publisher CRUD operations
 
-class PublisherList(ListView):
-    model = Publisher
-    template_name = 'publishers/publisher_list.html'
+class PublisherList(View):
 
-    def get_queryset(self):
-        return Publisher.objects.alphabetical()
+    def get(self, request):
+        template = 'publishers/publisher_list.html'
+        context = {
+            'publishers': Publisher.objects.alphabetical()
+        }
+        return render(request, template, context)
 
 class PublisherDetail(DetailView):
     model = Publisher

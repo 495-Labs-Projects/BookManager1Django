@@ -153,12 +153,12 @@ class PublisherViewTests(FactoryTestCase):
         response = self.client.get(reverse('books:publisher_list'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No publishers are available.")
-        self.assertQuerysetEqual(response.context['object_list'], [])
+        self.assertQuerysetEqual(response.context['publishers'], [])
 
     def test_list_view_with_publishers(self):
         response = self.client.get(reverse('books:publisher_list'))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(list(response.context['object_list']), 
+        self.assertQuerysetEqual(list(response.context['publishers']), 
             [repr(self.factories.p1), repr(self.factories.p2), repr(self.factories.p3)])
 
     def test_new_publisher_view(self):
