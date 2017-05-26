@@ -10,4 +10,5 @@ python-dateutil==2.6.0
 python-gnupg==0.4.0
 pytz==2017.2
 PyYAML==3.12
+selenium==3.4.2
 six==1.10.0
