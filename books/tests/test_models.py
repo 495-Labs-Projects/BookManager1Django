@@ -55,7 +55,6 @@ class BookTests(FactoryTestCase):
         bad_book = BookFactory.build(year_published=timezone.now().year + 2, publisher=self.factories.p1, authors=[self.factories.a1])
         self.assertRaises(ValidationError, bad_book.full_clean)
 
-
     def test_alphabetical(self):
         self.assertQuerysetEqual(Book.objects.alphabetical(), 
             [repr(self.factories.b3), repr(self.factories.b1), repr(self.factories.b2)])

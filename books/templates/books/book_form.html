@@ -4,7 +4,11 @@
 
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    {% if object %}
+        <input type="submit" value="Update Book" />
+    {% else %}
+        <input type="submit" value="Create Book" />
+    {% endif %}
 </form>
 
 {% endblock %}

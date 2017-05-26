@@ -26,14 +26,14 @@ class BookCreate(CreateView):
     form_class = BookForm
 
     def get_success_url(self):
-        return reverse('books:book_list')
+        return reverse('books:book_detail', args=(self.object.id,))
 
 class BookUpdate(UpdateView):
     model = Book
     form_class = BookForm
     
     def get_success_url(self):
-        return reverse('books:book_list')
+        return reverse('books:book_detail', args=(self.object.id,))
 
 class BookDelete(DeleteView):
     model = Book
@@ -61,7 +61,7 @@ class AuthorCreate(CreateView):
     template_name = 'authors/author_form.html'
 
     def get_success_url(self):
-        return reverse('books:author_list')
+        return reverse('books:author_detail', args=(self.object.id,))
 
 class AuthorUpdate(UpdateView):
     model = Author
@@ -69,7 +69,7 @@ class AuthorUpdate(UpdateView):
     template_name = 'authors/author_form.html'
     
     def get_success_url(self):
-        return reverse('books:author_list')
+        return reverse('books:author_detail', args=(self.object.id,))
 
 class AuthorDelete(DeleteView):
     model = Author
@@ -98,7 +98,7 @@ class PublisherCreate(CreateView):
     template_name = 'publishers/publisher_form.html'
 
     def get_success_url(self):
-        return reverse('books:publisher_list')
+        return reverse('books:publisher_detail', args=(self.object.id,))
 
 class PublisherUpdate(UpdateView):
     model = Publisher
@@ -106,7 +106,7 @@ class PublisherUpdate(UpdateView):
     template_name = 'publishers/publisher_form.html'
     
     def get_success_url(self):
-        return reverse('books:publisher_list')
+        return reverse('books:publisher_detail', args=(self.object.id,))
 
 class PublisherDelete(DeleteView):
     model = Publisher
