@@ -123,18 +123,37 @@ class PublisherCreate(View):
             }
             return render(request, template, context)
 
-class PublisherUpdate(UpdateView):
-    model = Publisher
-    form_class = PublisherForm
-    template_name = 'publishers/publisher_form.html'
-    
-    def get_success_url(self):
-        return reverse('books:publisher_detail', args=(self.object.id,))
+class PublisherUpdate(View):
 
-class PublisherDelete(DeleteView):
-    model = Publisher
-    template_name = 'publishers/publisher_confirm_delete.html'
-    
-    def get_success_url(self):
-        return reverse('books:publisher_list')
+    def get(self, request, pk):
+        template = 'publishers/publisher_form.html'
+        publisher = get_object_or_404(Publisher, pk=pk)
+        form = PublisherForm(instance=publisher)
+        context = {
+            'publisher': publisher,
+            'form': form
+        }
+        return render(request, template, context)
+
+    def post(self, request, pk):
+        publisher = get_object_or_404(Publisher, pk=pk)
+        form = PublisherForm(request.POST, instance=publisher)
+        if form.is_valid():
+            publisher = form.save()
+            messages.success(request, 'Sucessfully updated %s!' % publisher.name)
+            return HttpResponseRedirect(reverse('books:publisher_detail', args=(publisher.id,)))
+        else:
+            template = 'publishers/publisher_form.html'
+            context = {
+                'form': form
+            }
+            return render(request, template, context)
+
+class PublisherDelete(View):
+
+    def post(self, request, pk):
+        publisher = get_object_or_404(Publisher, pk=pk)
+        publisher.delete()
+        messages.success(request, 'Sucessfully deleted %s!' % publisher.name)
+        return HttpResponseRedirect(reverse('books:publisher_list'))
 

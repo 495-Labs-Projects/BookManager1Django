@@ -4,7 +4,7 @@
 
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
-    {% if object %}
+    {% if publisher %}
         <input type="submit" value="Update Publisher" />
     {% else %}
         <input type="submit" value="Create Publisher" />

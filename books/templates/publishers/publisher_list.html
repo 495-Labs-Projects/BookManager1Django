@@ -10,7 +10,10 @@
         <li>
             <a href="{% url 'books:publisher_detail' publisher.id %}">{{ publisher.name }}</a>
             <a href="{% url 'books:publisher_edit' publisher.id %}">edit</a>
-            <a href="{% url 'books:publisher_delete' publisher.id %}">delete</a>
+            <form action="{% url 'books:publisher_delete' publisher.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="delete" onclick="return confirm('Are you sure you want to delete this?')">
+            </form>
         </li>
         {% endfor %}
     </ul>
