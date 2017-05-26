@@ -137,15 +137,75 @@ class AuthorViewTests(FactoryTestCase):
 
     def test_delete_book_view(self):
         num_authors = Author.objects.count()
-        import pdb; pdb.set_trace()
         response = self.client.post(reverse('books:author_delete', args=(self.factories.a3.id,)))
         self.assertEqual(Author.objects.count(), num_authors - 1)
         self.assertRedirects(response, reverse('books:author_list'))
 
 
-        # num_publishers = Publisher.objects.count()
-        # response = self.client.post(reverse('books:publisher_new'), 
-        #     {'name': 'Test Pub'})
-        # self.assertEqual(Publisher.objects.count(), num_publishers + 1)
-        # self.assertRedirects(response, reverse('books:publisher_detail', args=(4,)))
+class PublisherViewTests(FactoryTestCase):
+
+    def setUp(self):
+        self.factories.populate_books()
+
+    def test_list_view_with_no_publishers(self):
+        Publisher.objects.all().delete()
+
+        response = self.client.get(reverse('books:publisher_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No publishers are available.")
+        self.assertQuerysetEqual(response.context['object_list'], [])
+
+    def test_list_view_with_publishers(self):
+        response = self.client.get(reverse('books:publisher_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['object_list']), 
+            [repr(self.factories.p1), repr(self.factories.p2), repr(self.factories.p3)])
+
+    def test_new_publisher_view(self):
+        response = self.client.get(reverse('books:publisher_new'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], PublisherForm)
+        self.assertContains(response, "Create Publisher")
+
+    def test_create_publisher_view(self):
+        num_publishers = Publisher.objects.count()
+        response = self.client.post(reverse('books:publisher_new'),
+            {'name': 'Test Publisher'}) 
+        self.assertEqual(Publisher.objects.count(), num_publishers + 1)
+        self.assertRedirects(response, reverse('books:publisher_detail', args=(num_publishers+1,)))
+
+    def test_create_bad_publisher_view(self):
+        num_publishers = Publisher.objects.count()
+        response = self.client.post(reverse('books:publisher_new'),
+            {'name': ''}) 
+        self.assertEqual(Publisher.objects.count(), num_publishers)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], PublisherForm)
+
+    def test_edit_publisher_view(self):
+        response = self.client.get(reverse('books:publisher_edit', args=(self.factories.p1.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], PublisherForm)
+        self.assertContains(response, "Update Publisher")
+
+    def test_update_publisher_view(self):
+        response = self.client.post(reverse('books:publisher_edit', args=(self.factories.p1.id,)),
+            {'name': 'Test Publisher'})
+        self.factories.p1.refresh_from_db()
+        self.assertEqual(self.factories.p1.name, 'Test Publisher')
+        self.assertRedirects(response, reverse('books:publisher_detail', args=(self.factories.p1.id,)))
+
+    def test_update_bad_publisher_view(self):
+        response = self.client.post(reverse('books:publisher_edit', args=(self.factories.p1.id,)),
+            {'name': ''})
+        self.factories.p1.refresh_from_db()
+        self.assertEqual(self.factories.p1.name, 'Pearson')
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], PublisherForm)
+
+    def test_delete_book_view(self):
+        num_publishers = Publisher.objects.count()
+        response = self.client.post(reverse('books:publisher_delete', args=(self.factories.p1.id,)))
+        self.assertEqual(Publisher.objects.count(), num_publishers - 1)
+        self.assertRedirects(response, reverse('books:publisher_list'))
 
