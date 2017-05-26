@@ -19,7 +19,7 @@ class AuthorForm(forms.ModelForm):
 
 
 class PublisherForm(forms.ModelForm):
-
+    
     class Meta:
         model = Publisher
         fields = ["name"] 

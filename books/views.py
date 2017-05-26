@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib import messages
 
-# Create your views here.
-from django.http import HttpResponse
 from django.views.generic import View, TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse
 
 from books.models import *
 from books.forms import *
@@ -90,17 +90,38 @@ class PublisherList(View):
         }
         return render(request, template, context)
 
-class PublisherDetail(DetailView):
-    model = Publisher
-    template_name = 'publishers/publisher_detail.html'
+class PublisherDetail(View):
 
-class PublisherCreate(CreateView):
-    model = Publisher
-    form_class = PublisherForm
-    template_name = 'publishers/publisher_form.html'
+    def get(self, request, pk):
+        template = 'publishers/publisher_detail.html'
+        publisher = get_object_or_404(Publisher, pk=pk)
+        context = {
+            'publisher': publisher
+        }
+        return render(request, template, context)
 
-    def get_success_url(self):
-        return reverse('books:publisher_detail', args=(self.object.id,))
+class PublisherCreate(View):
+
+    def get(self, request):
+        template = 'publishers/publisher_form.html'
+        form = PublisherForm()
+        context = {
+            'form': form
+        }
+        return render(request, template, context)
+
+    def post(self, request):
+        form = PublisherForm(request.POST)
+        if form.is_valid():
+            publisher = form.save()
+            messages.success(request, 'Sucessfully created %s!' % publisher.name)
+            return HttpResponseRedirect(reverse('books:publisher_detail', args=(publisher.id,)))
+        else:
+            template = 'publishers/publisher_form.html'
+            context = {
+                'form': form
+            }
+            return render(request, template, context)
 
 class PublisherUpdate(UpdateView):
     model = Publisher
