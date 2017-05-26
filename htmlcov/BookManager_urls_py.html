@@ -88,6 +88,7 @@
 <p id="n19" class="stm run hide_run"><a href="#n19">19</a></p>
 <p id="n20" class="pln"><a href="#n20">20</a></p>
 <p id="n21" class="pln"><a href="#n21">21</a></p>
+<p id="n22" class="pln"><a href="#n22">22</a></p>
 
             </td>
             <td class="text">
@@ -106,12 +107,13 @@
 <p id="t13" class="pln"><span class="str">    1. Import the include() function: from django.conf.urls import url, include</span><span class="strut">&nbsp;</span></p>
 <p id="t14" class="pln"><span class="str">    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))</span><span class="strut">&nbsp;</span></p>
 <p id="t15" class="pln"><span class="str">"""</span><span class="strut">&nbsp;</span></p>
-<p id="t16" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">conf</span><span class="op">.</span><span class="nam">urls</span> <span class="key">import</span> <span class="nam">url</span><span class="strut">&nbsp;</span></p>
+<p id="t16" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">conf</span><span class="op">.</span><span class="nam">urls</span> <span class="key">import</span> <span class="nam">include</span><span class="op">,</span> <span class="nam">url</span><span class="strut">&nbsp;</span></p>
 <p id="t17" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">contrib</span> <span class="key">import</span> <span class="nam">admin</span><span class="strut">&nbsp;</span></p>
 <p id="t18" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t19" class="stm run hide_run"><span class="nam">urlpatterns</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
 <p id="t20" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^admin/'</span><span class="op">,</span> <span class="nam">admin</span><span class="op">.</span><span class="nam">site</span><span class="op">.</span><span class="nam">urls</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t21" class="pln"><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t21" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^books/'</span><span class="op">,</span> <span class="nam">include</span><span class="op">(</span><span class="str">'books.urls'</span><span class="op">,</span> <span class="nam">namespace</span><span class="op">=</span><span class="str">'books'</span><span class="op">)</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t22" class="pln"><span class="op">]</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -122,7 +124,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.4.1</a>,
-            created at 2017-05-24 17:21
+            created at 2017-05-26 00:26
         </p>
     </div>
 </div>
