@@ -11,6 +11,17 @@ from books.models import *
 from books.forms import *
 
 # Books CRUD operations
+# (Note: Check out at the bottom the CRUD operations for Publisher if you want to see the 
+# detailed version of what is done with Book and Publisher)
+#
+# The CRUB operations for Books uses generic Class Based Views which generalizes a lot
+# of the interactions. Classes like ListView just displays a list (given a queryset) and
+# CreateView displays the new form and creates a new item (in this case a Book).
+# ListViews and DetailView only responds to GET requests, because they only display things.
+# CreateView and UpdateView responds to both GET and POST requests, GET for the form (new/edit),
+# and POST for the actual creation (create/update).
+# DeleteView also responds to both GET and POST, GET for the delete confirmation (check the template),
+# and POST for the actual deletion. 
 
 class BookList(ListView):
     model = Book()
@@ -80,6 +91,12 @@ class AuthorDelete(DeleteView):
 
 
 # Publisher CRUD operations
+# All the CRUD actions for Publisher is broken down to use just the View Class. 
+# This does basically the same exact thing as the CRUD views for Book and Author, but
+# this has a lot more code explaining what is actually going on. This is probably better
+# for educational use. 
+# This is just the more detailed written out version of what could be simply done with 
+# class based views.
 
 class PublisherList(View):
 
