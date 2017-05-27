@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1>{{ object.title }}</h1>
+<h1 id="book-title">{{ object.title }}</h1>
 
 <p>Year Publsihed: {{ object.year_published }}</p>
 <p>Publisher: {{ object.publisher.name }}</p>
 
 <p>
     Authors:
-    <ul>
+    <ul id="book-authors">
     {% for author in object.authors.all %}
         <li><a href="{% url 'books:author_detail' author.id %}">{{ author }}</a></li>
     {% endfor %}
