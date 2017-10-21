@@ -9,26 +9,26 @@ For more information of how you should set up Django, look at the [DjangoNotes](
 First make sure you have Python >= 3.4 and then you need to install all the project requirements:
 
 ```
-$ pip install -r requirements
+$ pip install -r requirements.txt
 ```
 
-More info on installing requirements [here](https://github.com/495-Labs-Projects/DjangoNotes/blob/master/PythonRequirements.md)
+May also be pip3. More info on installing requirements [here](https://github.com/495-Labs-Projects/DjangoNotes/blob/master/PythonRequirements.md)
 
 #### Running the application
 
 To run the application run the following command at the root of the project:
 
 ```
-$ manage.py runserver
+$ python manage.py runserver
 ```
 
 If any migration errors come up, run the following before starting up the server:
 
 ```
-$ manage.py migrate
+$ python manage.py migrate
 ```
 
-More info on running Django apps go [here](https://github.com/495-Labs-Projects/DjangoNotes/blob/master/DjangoApps.md)
+May also be python3. More info on running Django apps go [here](https://github.com/495-Labs-Projects/DjangoNotes/blob/master/DjangoApps.md)
 
 #### Running tests
 
